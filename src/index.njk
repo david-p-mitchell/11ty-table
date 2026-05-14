@@ -18,14 +18,15 @@ layout: base.njk
     --card-bg: #ffffff;
   }
 
-  body {
+  html,body {
     background: var(--parchment);
     color: var(--ink);
     font-family: 'DM Sans', sans-serif;
+    width:100%;
+    margin: 0;
   }
 
   .hymns-page {
-    max-width: 1100px;
     margin: 0 auto;
     padding: 2rem 1.25rem 5rem;
   }
@@ -164,7 +165,6 @@ layout: base.njk
     border-bottom: 1px solid var(--rule);
     color: var(--ink);
     vertical-align: middle;
-    max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -292,7 +292,7 @@ layout: base.njk
   .era-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 500; }
   .era-btn.all-btn { letter-spacing: 0.02em; }
 </style>
-
+{% include "components/disclaimer.njk" %}
 <div class="hymns-page">
   <div class="hymns-header">
     <div class="hymns-header-top">
@@ -311,7 +311,7 @@ layout: base.njk
     <div class="toolbar">
       <div class="search-wrap">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search" placeholder="Search hymns…" oninput="filterAll()" />
+        <input type="text" id="search" placeholder="Search hymns…" oninput="filterAll()" style="max-width:80%; min-width:50$;" />
       </div>
     </div>
     <div class="era-filter" id="eraFilter">
@@ -331,7 +331,8 @@ layout: base.njk
 
         <button class="era-btn" data-min="2000" data-max="2010" onclick="setEra(this)">2000s</button>
         <button class="era-btn" data-min="2010" data-max="2020" onclick="setEra(this)">2010s</button>
-        <button class="era-btn" data-min="2020" data-max="9999" onclick="setEra(this)">2020s</button>
+        <button class="era-btn" data-min="2020" data-max="2024" onclick="setEra(this)">2020-4</button>
+        <button class="era-btn" data-min="2024" data-max="9999" onclick="setEra(this)">2024-6</button>
     </div>
     <p class="row-count" id="rowCount"></p>
   </div>
@@ -409,6 +410,7 @@ layout: base.njk
             {% endfor %}
           </div>
         {% endif %}
+        <audio src="{{h.audio_url}}" controls />
       </div>
     {% endfor %}
   </div>
